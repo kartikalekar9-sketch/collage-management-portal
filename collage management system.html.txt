@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .sidebar-link.active {
+            background-color: #e5e7eb;
+            color: #1e40af;
+            font-weight: 500;
+        }
+        
+        .sidebar-link:hover:not(.active) {
+            background-color: #f3f4f6;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-md">
+            <div class="p-4 border-b">
+                <h1 class="text-xl font-bold text-blue-800">College Management</h1>
+                <p class="text-sm text-gray-500">Student Portal</p>
+            </div>
+            <div class="p-4">
+                <div class="mb-6">
+                    <div class="flex items-center gap-3 mb-4 p-2 rounded-lg bg-blue-50">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium" style="outline: rgb(0, 0, 0) dotted 3px; outline-offset: 1px;">Kartik</p>
+                            <p class="text-xs text-gray-500">Student</p>
+                        </div>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="space-y-1">
+                        <li>
+                            <a href="#" class="sidebar-link active flex items-center gap-2 p-2 rounded-lg" onclick="showSection('dashboard')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                                </svg>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-link flex items-center gap-2 p-2 rounded-lg" onclick="showSection('attendance')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                                </svg>
+                                Attendance
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-link flex items-center gap-2 p-2 rounded-lg" onclick="showSection('courses')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.246v4.941l1.5 1.5V10.246l1.777-.948 4.312 1.848a1 1 0 00.787 0l4.389-1.881a3 3 0 002.015-2.298l-6.774-.293L3.31 9.397z" />
+                                </svg>
+                                Courses
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-link flex items-center gap-2 p-2 rounded-lg" onclick="showSection('exams')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+                                </svg>
+                                Examinations
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-link flex items-center gap-2 p-2 rounded-lg" onclick="showSection('scores')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                                Scores
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-link flex items-center gap-2 p-2 rounded-lg" onclick="showSection('fees')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.569a.75.75 0 10-1.41.515c.527.916 1.612 1.375 2.723 1.375 1.111 0 2.196-.459 2.723-1.375a.75.75 0 00-1.41-.515c-.163.252-.452.442-.843.569v-1.94a4.535 4.535 0 001.676-.662C13.398 9.766 14 8.99 14 8c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 5.092V5z" clip-rule="evenodd" />
+                                </svg>
+                                Fees
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold" id="section-title">Dashboard</h2>
+                <div class="relative">
+                    <input type="text" placeholder="Search..." class="pl-8 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-2 top-2.5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Content Sections -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="content-section active">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500">Attendance Percentage</p>
+                                    <p class="text-2xl font-bold">85%</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-blue-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500">Current GPA</p>
+                                    <p class="text-2xl font-bold">3.7</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-green-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500">Pending Fees</p>
+                                    <p class="text-2xl font-bold">100000rs</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-yellow-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500">Upcoming Exam</p>
+                                    <p class="text-2xl font-bold">Math</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-purple-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white p-4 rounded-lg border border-gray-200">
+                            <h3 class="font-medium mb-3">Recent Attendance</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full">
+                                    <thead>
+                                        <tr class="text-left text-sm text-gray-500 border-b">
+                                            <th class="pb-2">Date</th>
+                                            <th class="pb-2">Course</th>
+                                            <th class="pb-2">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="text-sm border-b border-gray-100">
+                                            <td class="py-3">May 10</td>
+                                            <td>Mathematics</td>
+                                            <td><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        </tr>
+                                        <tr class="text-sm border-b border-gray-100">
+                                            <td class="py-3">May 9</td>
+                                            <td>Physics</td>
+                                            <td><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        </tr>
+                                        <tr class="text-sm border-b border-gray-100">
+                                            <td class="py-3">May 8</td>
+                                            <td>Chemistry</td>
+                                            <td><span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Absent</span></td>
+                                        </tr>
+                                        <tr class="text-sm">
+                                            <td class="py-3">May 7</td>
+                                            <td>English</td>
+                                            <td><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-gray-200">
+                            <h3 class="font-medium mb-3">Upcoming Exams</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-blue-100 p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="font-medium">Mathematics Final</p>
+                                        <p class="text-sm text-gray-500">June 15, 2023</p>
+                                        <p class="text-xs mt-1">Room 401 - 2:00 PM</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 bg-purple-100 p-2 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="font-medium">Physics Midterm</p>
+                                        <p class="text-sm text-gray-500">June 20, 2023</p>
+                                        <p class="text-xs mt-1">Room 205 - 9:30 AM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attendance Section -->
+                <div id="attendance" class="content-section">
+                    <h3 class="text-xl font-semibold mb-4">Attendance Records</h3>
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-medium">Current Semester</h4>
+                            <div class="relative">
+                                <select class="appearance-none bg-white border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option>Spring 2023</option>
+                                    <option>Fall 2022</option>
+                                    <option>Spring 2022</option>
+                                </select>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute right-3 top-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Course</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Present</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Absent</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-3 text-sm">Mathematics</td>
+                                    <td class="px-4 py-3 text-sm">30</td>
+                                    <td class="px-4 py-3 text-sm">5</td>
+                                    <td class="px-4 py-3 text-sm font-medium">85%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm">Physics</td>
+                                    <td class="px-4 py-3 text-sm">28</td>
+                                    <td class="px-4 py-3 text-sm">7</td>
+                                    <td class="px-4 py-3 text-sm font-medium">80%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm">Chemistry</td>
+                                    <td class="px-4 py-3 text-sm">25</td>
+                                    <td class="px-4 py-3 text-sm">10</td>
+                                    <td class="px-4 py-3 text-sm font-medium">71%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm">English</td>
+                                    <td class="px-4 py-3 text-sm">32</td>
+                                    <td class="px-4 py-3 text-sm">3</td>
+                                    <td class="px-4 py-3 text-sm font-medium">91%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium mb-3">Daily Attendance</h4>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white rounded-lg">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Date</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Mathematics</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Physics</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Chemistry</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">English</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm">May 10</td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Absent</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm">May 9</td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Absent</span></td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm">May 8</td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Absent</span></td>
+                                        <td class="px-4 py-3 text-sm"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Present</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Courses Section -->
+                <div id="courses" class="content-section">
+                    <h3 class="text-xl font-semibold mb-4">Course Information</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-100 p-3 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">Mathematics</h4>
+                                    <p class="text-sm text-gray-600 mb-2">Prof. Smith - Mon/Wed 10:00 AM</p>
+                                    <p class="text-sm">Advanced Calculus and Linear Algebra concepts.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-green-100 p-3 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">Physics</h4>
+                                    <p class="text-sm text-gray-600 mb-2">Prof. Johnson - Tue/Thu 1:30 PM</p>
+                                    <p class="text-sm">Fundamentals of classical mechanics and thermodynamics.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 rounded-lg p-4">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-purple-100 p-3 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">Chemistry</h4>
+                                    <p class="text-sm text-gray-600 mb-2">Prof. Williams - Mon/Wed 2:00 PM</p>
+                                    <p class="text-sm">Organic chemistry and chemical bonding principles.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 rounded-lg p-4">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-yellow-100 p-3 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg">English</h4>
+                                    <p class="text-sm text-gray-600 mb-2">Prof. Davis - Fri 9:00 AM</p>
+                                    <p class="text-sm">Literature analysis and academic writing techniques.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium mb-3">Course Materials</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 p-3 border rounded-lg">
+                                <div class="bg-gray-100 p-3 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between">
+                                        <p class="font-medium">Math Syllabus</p>
+                                        <p class="text-xs text-gray-500">PDF • 120KB</p>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">Course objectives and grading criteria</p>
+                                </div>
+                                <button class="p-2 rounded-lg hover:bg-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="flex items-start gap-4 p-3 border rounded-lg">
+                                <div class="bg-gray-100 p-3 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between">
+                                        <p class="font-medium">Physics Lab Manual</p>
+                                        <p class="text-xs text-gray-500">PDF • 850KB</p>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">Spring 2023 laboratory experiments</p>
+                                </div>
+                                <button class="p-2 rounded-lg hover:bg-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exams Section -->
+                <div id="exams" class="content-section">
+                    <h3 class="text-xl font-semibold mb-4">Examination Schedule</h3>
+                    
+                    <div class="mb-8">
+                        <h4 class="font-medium mb-3">Upcoming Exams</h4>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white rounded-lg">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Exam</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Date</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Time</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Location</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm font-medium">Mathematics Midterm</td>
+                                        <td class="px-4 py-3 text-sm">June 15</td>
+                                        <td class="px-4 py-3 text-sm">10:00 AM</td>
+                                        <td class="px-4 py-3 text-sm">Building A, Room 205</td>
+                                        <td class="px-4 py-3 text-sm">2 hours</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm font-medium">Physics Practical</td>
+                                        <td class="px-4 py-3 text-sm">June 18</td>
+                                        <td class="px-4 py-3 text-sm">1:30 PM</td>
+                                        <td class="px-4 py-3 text-sm">Science Lab 3</td>
+                                        <td class="px-4 py-3 text-sm">3 hours</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm font-medium">Chemistry Final</td>
+                                        <td class="px-4 py-3 text-sm">June 21</td>
+                                        <td class="px-4 py-3 text-sm">9:00 AM</td>
+                                        <td class="px-4 py-3 text-sm">Building B, Room 103</td>
+                                        <td class="px-4 py-3 text-sm">2.5 hours</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium mb-3">Exam Results</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 p-4 bg-white border rounded-lg">
+                                <div class="flex-shrink-0 bg-blue-100 p-3 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between">
+                                        <p class="font-medium">Mathematics Quiz 1</p>
+                                        <p class="text-sm">A+</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">Conducted on May 5, 2023</p>
+                                    <div class="mt-2 text-sm">Score: 95/100 • Class Average: 82</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 bg-white border rounded-lg">
+                                <div class="flex-shrink-0 bg-blue-100 p-3 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between">
+                                        <p class="font-medium">Physics Midterm</p>
+                                        <p class="text-sm">B+</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">Conducted on May 12, 2023</p>
+                                    <div class="mt-2 text-sm">Score: 87/100 • Class Average: 78</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scores Section -->
+                <div id="scores" class="content-section">
+                    <h3 class="text-xl font-semibold mb-4">Academic Scores</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-medium mb-3">Current GPA</h4>
+                        <div class="bg-blue-50 rounded-lg p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500">Overall GPA</p>
+                                    <p class="text-3xl font-bold">3.72</p>
+                                </div>
+                                <div class="bg-blue-100 p-2 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Current GPA</span>
+                                    <span>3.72 / 4.0</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 93%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="font-medium mb-3">Course Grades</h4>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white rounded-lg">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Course</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Grade</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Credit Hours</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Semester</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm font-medium">Mathematics</td>
+                                        <td class="px-4 py-3 text-sm">A</td>
+                                        <td class="px-4 py-3 text-sm">4</td>
+                                        <td class="px-4 py-3 text-sm">Spring 2023</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm font-medium">Physics</td>
+                                        <td class="px-4 py-3 text-sm">B+</td>
+                                        <td class="px-4 py-3 text-sm">3</td>
+                                        <td class="px-4 py-3 text-sm">Spring 2023</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm font-medium">Chemistry</td>
+                                        <td class="px-4 py-3 text-sm">C+</td>
+                                        <td class="px-4 py-3 text-sm">3</td>
+                                        <td class="px-4 py-3 text-sm">Spring 2023</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm font-medium">English</td>
+                                        <td class="px-4 py-3 text-sm">A-</td>
+                                        <td class="px-4 py-3 text-sm">2</td>
+                                        <td class="px-4 py-3 text-sm">Spring 2023</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium mb-3">Grade Distribution</h4>
+                        <div class="bg-white p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-center">
+                                <img src="https://placehold.co/600x300" alt="Grade distribution chart showing percentages for A, B, C grades across subjects" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fees Section -->
+                <div id="fees" class="content-section">
+                    <h3 class="text-xl font-semibold mb-4">Fee Management</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white border rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-medium">Current Balance</h4>
+                                <span class="text-xl font-bold">₹100,000</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Tuition Fees</span>
+                                    <span>₹80,000</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Library Fees</span>
+                                    <span>₹5,000</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Lab Fees</span>
+                                    <span>₹10,000</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Hostel Fees</span>
+                                    <span>₹5,000</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white border rounded-lg p-4">
+                            <h4 class="font-medium mb-4">Payment History</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">June 2023</span>
+                                    <div>
+                                        <span class="text-green-600">Paid</span>
+                                        <span class="ml-2">₹10,000</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">May 2023</span>
+                                    <div>
+                                        <span class="text-green-600">Paid</span>
+                                        <span class="ml-2">₹10,000</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">April 2023</span>
+                                    <div>
+                                        <span class="text-green-600">Paid</span>
+                                        <span class="ml-2">₹10,000</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-medium mb-3">Make Payment</h4>
+                        <div class="bg-white border rounded-lg p-6">
+                            <form>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option>Credit Card</option>
+                                        <option>Debit Card</option>
+                                        <option>Net Banking</option>
+                                        <option>UPI</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Amount (₹)</label>
+                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter amount">
+                                </div>
+                                <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                                    Proceed to Pay
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Update active link in sidebar
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update section title
+            const sectionTitles = {
+                'dashboard': 'Dashboard',
+                'attendance': 'Attendance',
+                'courses': 'Courses',
+                'exams': 'Examinations',
+                'scores': 'Scores',
+                'fees': 'Fees'
+            };
+            document.getElementById('section-title').textContent = sectionTitles[sectionId];
+            
+            // Show the selected section
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
